@@ -32,9 +32,9 @@
   <version>1.0.0-SNAPSHOT</version>
 
   <packaging>bundle</packaging>
+
   <name>Everit - Authenticated Authorization Permission Cheker RI ECM</name>
   <description>ECM based component of authnr-permission-checker-ri.</description>
-
 
   <properties>
     <projectpath>authnr-permission-checker-ri-ecm</projectpath>
@@ -100,7 +100,7 @@
     <dependency>
       <groupId>org.everit.authnr</groupId>
       <artifactId>org.everit.authnr.permissionchecker.ri</artifactId>
-      <version>1.0.0-SNAPSHOT</version>
+      <version>1.0.0</version>
     </dependency>
 
     <dependency>
