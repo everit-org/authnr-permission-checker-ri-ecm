@@ -131,6 +131,16 @@
 
     <dependency>
       <groupId>org.everit.props</groupId>
+      <artifactId>org.everit.props.ri</artifactId>
+      <version>3.0.1-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <groupId>org.everit.props</groupId>
+      <artifactId>org.everit.props.ri.schema.qdsl</artifactId>
+      <version>3.0.1-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <groupId>org.everit.props</groupId>
       <artifactId>org.everit.props.ri.ecm</artifactId>
       <version>3.0.0</version>
     </dependency>
