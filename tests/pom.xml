@@ -132,7 +132,7 @@
     <dependency>
       <groupId>org.everit.props</groupId>
       <artifactId>org.everit.props.ri.ecm</artifactId>
-      <version>2.0.0</version>
+      <version>3.0.0</version>
     </dependency>
     <dependency>
       <groupId>org.everit.cache</groupId>
@@ -143,7 +143,7 @@
     <dependency>
       <groupId>org.everit.resource</groupId>
       <artifactId>org.everit.resource.ri.ecm</artifactId>
-      <version>2.0.0</version>
+      <version>3.0.0</version>
     </dependency>
 
     <dependency>
