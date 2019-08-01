@@ -28,26 +28,24 @@ import org.everit.osgi.ecm.annotation.Component;
 import org.everit.osgi.ecm.annotation.ConfigurationPolicy;
 import org.everit.osgi.ecm.annotation.Deactivate;
 import org.everit.osgi.ecm.annotation.ManualService;
+import org.everit.osgi.ecm.annotation.ManualServices;
 import org.everit.osgi.ecm.annotation.ServiceRef;
 import org.everit.osgi.ecm.annotation.attribute.StringAttribute;
 import org.everit.osgi.ecm.annotation.attribute.StringAttributes;
 import org.everit.osgi.ecm.component.ComponentContext;
-import org.everit.osgi.ecm.extender.ECMExtenderConstants;
+import org.everit.osgi.ecm.extender.ExtendComponent;
 import org.osgi.framework.Constants;
 import org.osgi.framework.ServiceRegistration;
-
-import aQute.bnd.annotation.headers.ProvideCapability;
 
 /**
  * ECM component for {@link AuthnrPermissionChecker} interface based on
  * {@link AuthnrPermissionCheckerImpl}.
  */
+@ExtendComponent
 @Component(componentId = AuthnrPermissionCheckerConstants.SERVICE_FACTORYPID,
     configurationPolicy = ConfigurationPolicy.FACTORY,
     label = "Everit Authenticated Authorization Permission Checker RI",
     description = "Component that registers an AuthnrPermissionChecker OSGi service.")
-@ProvideCapability(ns = ECMExtenderConstants.CAPABILITY_NS_COMPONENT,
-    value = ECMExtenderConstants.CAPABILITY_ATTR_CLASS + "=${@class}")
 @StringAttributes({
     @StringAttribute(attributeId = Constants.SERVICE_DESCRIPTION,
         defaultValue = AuthnrPermissionCheckerConstants.DEFAULT_SERVICE_DESCRIPTION,
@@ -55,7 +53,7 @@ import aQute.bnd.annotation.headers.ProvideCapability;
         label = "Service Description",
         description = "The description of this component configuration. It is used to easily "
             + "identify the service registered by this component.") })
-@ManualService(AuthnrPermissionChecker.class)
+@ManualServices(@ManualService({ AuthnrPermissionChecker.class }))
 public class AuthnrPermissionCheckerComponent {
 
   public static final int P1_SERVICE_DESCRIPTION = 1;
@@ -76,11 +74,11 @@ public class AuthnrPermissionCheckerComponent {
   @Activate
   public void activate(final ComponentContext<AuthnrPermissionCheckerComponent> componentContext) {
     AuthnrPermissionCheckerImpl authnrPermissionChecker =
-        new AuthnrPermissionCheckerImpl(authenticationContext, permissionChecker);
+        new AuthnrPermissionCheckerImpl(this.authenticationContext, this.permissionChecker);
 
     Dictionary<String, Object> serviceProperties =
         new Hashtable<>(componentContext.getProperties());
-    serviceRegistration =
+    this.serviceRegistration =
         componentContext.registerService(AuthnrPermissionChecker.class, authnrPermissionChecker,
             serviceProperties);
   }
@@ -90,8 +88,8 @@ public class AuthnrPermissionCheckerComponent {
    */
   @Deactivate
   public void deactivate() {
-    if (serviceRegistration != null) {
-      serviceRegistration.unregister();
+    if (this.serviceRegistration != null) {
+      this.serviceRegistration.unregister();
     }
   }
 

@@ -20,18 +20,15 @@ import org.everit.authorization.PermissionChecker;
 import org.everit.osgi.ecm.annotation.Component;
 import org.everit.osgi.ecm.annotation.ConfigurationPolicy;
 import org.everit.osgi.ecm.annotation.Service;
-import org.everit.osgi.ecm.extender.ECMExtenderConstants;
+import org.everit.osgi.ecm.extender.ExtendComponent;
 import org.junit.Assert;
-
-import aQute.bnd.annotation.headers.ProvideCapability;
 
 /**
  * Mock implementation of {@link PermissionChecker}.
  */
+@ExtendComponent
 @Component(componentId = "MockPermissionCheckerComponent",
     configurationPolicy = ConfigurationPolicy.OPTIONAL)
-@ProvideCapability(ns = ECMExtenderConstants.CAPABILITY_NS_COMPONENT,
-    value = ECMExtenderConstants.CAPABILITY_ATTR_CLASS + "=${@class}")
 @Service
 public class MockPermissionCheckerComponent implements PermissionChecker {
 
