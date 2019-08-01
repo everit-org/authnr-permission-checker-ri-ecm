@@ -26,19 +26,16 @@ import org.everit.osgi.ecm.annotation.Service;
 import org.everit.osgi.ecm.annotation.ServiceRef;
 import org.everit.osgi.ecm.annotation.attribute.StringAttribute;
 import org.everit.osgi.ecm.annotation.attribute.StringAttributes;
-import org.everit.osgi.ecm.extender.ECMExtenderConstants;
+import org.everit.osgi.ecm.extender.ExtendComponent;
 import org.junit.Assert;
 import org.junit.Test;
-
-import aQute.bnd.annotation.headers.ProvideCapability;
 
 /**
  * Test for AuthnrPermissionChecker.
  */
+@ExtendComponent
 @Component(componentId = "AuthnrPermissionCheckerTest",
     configurationPolicy = ConfigurationPolicy.OPTIONAL)
-@ProvideCapability(ns = ECMExtenderConstants.CAPABILITY_NS_COMPONENT,
-    value = ECMExtenderConstants.CAPABILITY_ATTR_CLASS + "=${@class}")
 @StringAttributes({
     @StringAttribute(attributeId = TestRunnerConstants.SERVICE_PROPERTY_TESTRUNNER_ENGINE_TYPE,
         defaultValue = "junit4"),
@@ -66,19 +63,19 @@ public class AuthnrPermissionCheckerTest {
   public void testComplex() {
 
     Assert.assertEquals(MockPermissionCheckerComponent.SYSTEM_RESOURCE_ID,
-        authnrPermissionChecker.getSystemResourceId());
+        this.authnrPermissionChecker.getSystemResourceId());
 
     Assert.assertArrayEquals(new long[] { MockAuthenticationContextComponent.CURRENT_RESOURCE_ID },
-        authnrPermissionChecker.getAuthorizationScope());
+        this.authnrPermissionChecker.getAuthorizationScope());
 
     Assert.assertEquals(MockPermissionCheckerComponent.HAS_PERMISSION,
-        authnrPermissionChecker.hasPermission(TARGET_RESOURCE_ID, ACTIONS));
+        this.authnrPermissionChecker.hasPermission(TARGET_RESOURCE_ID, ACTIONS));
 
     try {
-      authnrPermissionChecker.checkPermission(TARGET_RESOURCE_ID, ACTIONS);
+      this.authnrPermissionChecker.checkPermission(TARGET_RESOURCE_ID, ACTIONS);
       Assert.fail();
     } catch (UnauthorizedException e) {
-      Assert.assertArrayEquals(authnrPermissionChecker.getAuthorizationScope(),
+      Assert.assertArrayEquals(this.authnrPermissionChecker.getAuthorizationScope(),
           e.authorizationScope);
       Assert.assertEquals(TARGET_RESOURCE_ID, e.targetResourceId);
       Assert.assertArrayEquals(AuthnrPermissionCheckerTest.getActions(), e.actions);

@@ -19,26 +19,25 @@ import org.everit.authentication.context.AuthenticationContext;
 import org.everit.osgi.ecm.annotation.Component;
 import org.everit.osgi.ecm.annotation.ConfigurationPolicy;
 import org.everit.osgi.ecm.annotation.Service;
-import org.everit.osgi.ecm.extender.ECMExtenderConstants;
-
-import aQute.bnd.annotation.headers.ProvideCapability;
+import org.everit.osgi.ecm.extender.ExtendComponent;
 
 /**
  * Mock implementation of {@link AuthenticationContext}.
  */
+@ExtendComponent
 @Component(componentId = "MockAuthenticationContextComponent",
     configurationPolicy = ConfigurationPolicy.OPTIONAL)
-@ProvideCapability(ns = ECMExtenderConstants.CAPABILITY_NS_COMPONENT,
-    value = ECMExtenderConstants.CAPABILITY_ATTR_CLASS + "=${@class}")
 @Service
 public class MockAuthenticationContextComponent implements AuthenticationContext {
 
   public static final long CURRENT_RESOURCE_ID = 1;
 
+  @Override
   public long getCurrentResourceId() {
     return CURRENT_RESOURCE_ID;
   }
 
+  @Override
   public long getDefaultResourceId() {
     throw new UnsupportedOperationException();
   }
